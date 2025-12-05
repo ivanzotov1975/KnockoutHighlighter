@@ -3,7 +3,7 @@
     <Metadata>
         <Identity Id="KnockoutHighlighter.d665ff7d-c4be-48b3-87ab-c2f1e1bdcb99" Version="1.0" Language="en-US" Publisher="Ivan Zotov" />
         <DisplayName>KnockoutHighlighter</DisplayName>
-        <Description xml:space="preserve">To highlight the syntax of Knockout's data-bind attribute in HTML or Razor files using a Visual Studio extension.
+        <Description xml:space="preserve">To highlight the syntax of Knockout's 'data-bind' attribute in HTML or Razor files using a Visual Studio extension.
 </Description>
     </Metadata>
     <Installation>
