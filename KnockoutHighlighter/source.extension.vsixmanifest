@@ -1,10 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
     <Metadata>
-        <Identity Id="KnockoutHighlighter.d665ff7d-c4be-48b3-87ab-c2f1e1bdcb99" Version="1.0.1" Language="en-US" Publisher="Ivan Zotov" />
+        <Identity Id="KnockoutHighlighter.d665ff7d-c4be-48b3-87ab-c2f1e1bdcb99" Version="1.2" Language="en-US" Publisher="Ivan Zotov" />
         <DisplayName>Knockout Highlighter</DisplayName>
         <Description xml:space="preserve">To highlight the syntax of Knockout's 'data-bind' attribute in HTML or Razor files using a Visual Studio extension.
 </Description>
+        <Icon>favicon.ico</Icon>
+        <PreviewImage>a minimalist logo fe.png</PreviewImage>
+        <Tags>#knockout #highlighter #mvm #knockoutjs</Tags>
     </Metadata>
     <Installation>
         <InstallationTarget Id="Microsoft.VisualStudio.Community" Version="[17.0,18.0)">
