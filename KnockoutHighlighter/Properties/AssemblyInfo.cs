@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("KnockoutHighlighter")]
+[assembly: AssemblyTitle("Knockout Highlighter")]
 [assembly: AssemblyDescription("To highlight the syntax of Knockout's data-bind attribute in HTML or Razor files using a Visual Studio extension.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Ivan Zotov")]
