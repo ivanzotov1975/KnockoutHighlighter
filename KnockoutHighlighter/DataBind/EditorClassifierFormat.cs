@@ -20,7 +20,7 @@ namespace KnockoutHighlighter.DataBind
     public DataBindNameFormat()
     {
       DisplayName = "data-bind name";
-      ForegroundColor = Colors.MediumOrchid;
+      ForegroundColor = Colors.DarkKhaki;
       //IsBold = false;
     }
   }
@@ -29,14 +29,14 @@ namespace KnockoutHighlighter.DataBind
   [ClassificationType(ClassificationTypeNames = "dataBindValue")]
   [Name("dataBindValue")]
   [UserVisible(true)]
-  [Order(After = Priority.High)]
+  [Order(After = Priority.Default)]
   [Order(Before = "dataBindComment")]
   internal sealed class DataBindValueFormat : ClassificationFormatDefinition
   {
     public DataBindValueFormat()
     {
       DisplayName = "data-bind value";
-      BackgroundColor = Colors.DarkBlue;
+      BackgroundColor = Colors.DarkSlateGray;
     }
   }
 
@@ -51,10 +51,27 @@ namespace KnockoutHighlighter.DataBind
     public DataBindKeywordFormat()
     {
       DisplayName = "data-bind keyword";
-      ForegroundColor = Colors.DarkTurquoise;
+      ForegroundColor = Colors.Violet;
       IsItalic = false;
     }
   }
+
+  [Export(typeof(EditorFormatDefinition))]
+  [ClassificationType(ClassificationTypeNames = "dataBindSpecialKeyword")]
+  [Name("dataBindSpecialKeyword")]
+  [UserVisible(true)]
+  [Order(After = Priority.High)]
+  [Order(Before = "dataBindComment")]
+  internal sealed class DataBindSpecialKeywordFormat : ClassificationFormatDefinition
+  {
+    public DataBindSpecialKeywordFormat()
+    {
+      DisplayName = "data-bind special keyword";
+      ForegroundColor = Colors.DarkMagenta;
+      IsItalic = false;
+    }
+  }
+
 
   [Export(typeof(EditorFormatDefinition))]
   [ClassificationType(ClassificationTypeNames = "dataBindBracket")]
@@ -67,7 +84,7 @@ namespace KnockoutHighlighter.DataBind
     public DataBindBracketFormat()
     {
       DisplayName = "data-bind bracket";
-      ForegroundColor = Colors.YellowGreen;
+      ForegroundColor = Colors.Khaki;
     }
   }
 

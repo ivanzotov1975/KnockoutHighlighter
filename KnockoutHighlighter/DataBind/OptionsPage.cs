@@ -25,17 +25,21 @@ namespace KnockoutHighlighter.DataBind
     private Color _keywordForeground = Color.MediumVioletRed;
     private string _keywordForegroundHex = "#FFC71585";
 
+    // special keyword Color
+    private Color _specialKeywordForeground = Color.OrangeRed;
+    private string _specialKeywordForegroundHex = "#FFFF4500";
+
     // value background Color
     private Color _valueBackground = Color.DarkBlue;
     private string _valueBackgroundHex = "#FF00008B";
 
     // comment Color
-    private Color _commentColor = Color.Green;  
+    private Color _commentColor = Color.Green;
     private string _commentColorHex = "#008000";
 
     [Category("Colors")]
-    [DisplayName("Comment Color")]
-    [Description("Color for comments in the data-bind context.")]
+    [DisplayName("Comment Text Color")]
+    [Description("Text Color for comments in the 'data-bind' attribute value context.")]
     public Color CommentColor
     {
       get
@@ -63,20 +67,36 @@ namespace KnockoutHighlighter.DataBind
 
     // Keywords to highlight
     private string _keywords =
-      "text, html, css, style, attr, visible, hidden, enable, disable, value, valueUpdate, checked, hasFocus, selectedOptions, options, optionsText, optionsValue, optionsCaption, optionsAfterRender, foreach, if, ifnot, with, using, template, component, click, event, submit, keypress, keydown, keyup, hover, hasFocus, contextMenu, mouseover, mouseout, mouseenter, mouseleave, mousedown, mouseup, mousemove, dragstart, drag, dragend, drop, allowDrop, checkedValue";
+      "text, html, css, style, attr, visible, hidden, enable, disable, disabled, value, valueUpdate, checked, hasFocus, selectedOptions, options, optionsText, optionsValue, optionsCaption, optionsAfterRender, foreach, if, ifnot, with, using, template, component, click, event, submit, keypress, keydown, keyup, hover, hasFocus, contextMenu, mouseover, mouseout, mouseenter, mouseleave, mousedown, mouseup, mousemove, dragstart, drag, dragend, drop, allowDrop, checkedValue, textInput, name, id";
 
     [Category("Keywords")]
-    [DisplayName("Highlight Keywords")]
-    [Description("Comma-separated list of keywords to highlight (e.g., value, attr, hidden)")]
+    [DisplayName("Keywords")]
+    [Description("Comma-separated list of keywords in the 'data-bind' attribute value to highlight (e.g., value, attr, hidden)")]
     public string Keywords
     {
       get => _keywords;
       set => _keywords = value;
     }
+    //
+
+    // Special Keywords to highlight with higher priority
+    private string _specialKeywords =
+      "$data, $parent, $parents, $root, $index, $parentContext, $context, $component, $element, $rawData, $componentTemplateNodes";
+    [Category("Keywords")]
+    [DisplayName("Special Keywords (binding context)")]
+    [Description("Comma-separated list of special keywords in the 'data-bind' attribute value to highlight with higher priority (e.g., $data, $parent). " +
+      "KnockoutJS provides several special keywords, known as binding context properties or \"pseudovariables,\" which allow access to data and functions at different levels of your view model hierarchy.")]
+    public string SpecialKeywords
+    {
+      get => _specialKeywords;
+      set => _specialKeywords = value;
+    }
+    //
+
 
     // Attribute Name Color
     [Category("Colors")]
-    [DisplayName("Attribute Name Color")]
+    [DisplayName("Attribute 'data-bind' Text Color")]
     [Description("Color for the 'data-bind' attribute name.")]
     public Color AttributeNameColor
     {
@@ -107,7 +127,7 @@ namespace KnockoutHighlighter.DataBind
     // Bracket Color
     [Category("Colors")]
     [DisplayName("Bracket Color")]
-    [Description("Color for brackets inside data-bind values.")]
+    [Description("Color for brackets inside 'data-bind' attribute value.")]
     public Color BracketColor
     {
       get
@@ -134,10 +154,10 @@ namespace KnockoutHighlighter.DataBind
     }
     //
 
-    // Keyword Foreground Color
+    // Keyword Text Color
     [Category("Colors")]
-    [DisplayName("Keyword Foreground")]
-    [Description("Color used for keywords like value:, attr:, etc.")]
+    [DisplayName("Keyword Text Color")]
+    [Description("Text Color used for keywords from the list, like value:, attr:, visible:, etc.")]
     public Color KeywordForeground
     {
       get
@@ -164,10 +184,38 @@ namespace KnockoutHighlighter.DataBind
     }
     //
 
+    // Special Keyword Text Color
+    [Category("Colors")]
+    [DisplayName("Special Keyword Text Color")]
+    [Description("Text Color used for special keywords from the list, like $data, $parent, $root, etc.")]
+    public Color SpecialKeywordForeground
+    {
+      get
+      {
+        if(ColorTranslator.FromHtml(SpecialKeywordForegroundHex) is Color c)
+        {
+          return c;
+        }
+        else
+          return _specialKeywordForeground;
+      }
+      set
+      {
+        SpecialKeywordForegroundHex = ColorTranslator.ToHtml(value);
+        _specialKeywordForeground = value;
+      }
+    }
+    [Browsable(false)]
+    public string SpecialKeywordForegroundHex
+    {
+      get => _specialKeywordForegroundHex;
+      set => _specialKeywordForegroundHex = value;
+    }
+
     // Value Background Color
     [Category("Colors")]
-    [DisplayName("Value Background")]
-    [Description("Background color for the data-bind value string.")]
+    [DisplayName("'data-bind' value Background Color")]
+    [Description("Background Color for the 'data-bind' attribute value.")]
     public Color ValueBackground
     {
       get
@@ -203,7 +251,7 @@ namespace KnockoutHighlighter.DataBind
     }
 
     [Category("Style")]
-    [DisplayName("Make Attribute Name Bold")]
+    [DisplayName("Make Attribute 'data-bind' Bold")]
     public bool BoldAttributeName
     {
       get => _boldAttributeName;

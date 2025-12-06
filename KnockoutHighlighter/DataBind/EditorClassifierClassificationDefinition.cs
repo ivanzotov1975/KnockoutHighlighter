@@ -29,6 +29,10 @@ namespace KnockoutHighlighter.DataBind
     internal static ClassificationTypeDefinition DataBindKeywordType = null;
 
     [Export(typeof(ClassificationTypeDefinition))]
+    [Name("dataBindSpecialKeyword")]
+    internal static ClassificationTypeDefinition DataBindSpecialKeywordType = null;
+
+    [Export(typeof(ClassificationTypeDefinition))]
     [Name("dataBindBracket")]
     internal static ClassificationTypeDefinition DataBindBracketType = null;
 

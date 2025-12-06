@@ -16,10 +16,12 @@ namespace KnockoutHighlighter.DataBind
     private static readonly Regex DataBindRegex = new Regex(@"data-bind\s*=\s*""([^""]*)""", RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Singleline);
     private static readonly Regex BracketRegex = new Regex(@"[\[\]\(\)\{\}]", RegexOptions.Compiled);
     private readonly Regex _keywordRegex;
+    private readonly Regex _specialKeywordRegex;
     //END REGEX
 
     private readonly IClassificationType _bracketType;
     private readonly IClassificationType _keywordType;
+    private readonly IClassificationType _specialKeywordType;
     private readonly IClassificationType _nameType;
     private readonly IClassificationType _valueType;
     private readonly IClassificationType _commentType;
@@ -36,10 +38,13 @@ namespace KnockoutHighlighter.DataBind
       _nameType = registry.GetClassificationType("dataBindName");
       _valueType = registry.GetClassificationType("dataBindValue");
       _keywordType = registry.GetClassificationType("dataBindKeyword");
+      _specialKeywordType = registry.GetClassificationType("dataBindSpecialKeyword");
       _bracketType = registry.GetClassificationType("dataBindBracket");
       _commentType= registry.GetClassificationType("dataBindComment");
 
       _keywordRegex = BuildKeywordRegex();
+      _specialKeywordRegex = BuildSpecialKeywordRegex();
+
     }
     public void Refresh()
     {
@@ -58,6 +63,20 @@ namespace KnockoutHighlighter.DataBind
         .Select(Regex.Escape);
 
       var pattern = $@"\b({string.Join("|", keywords)})\s*:";
+      return new Regex(pattern, RegexOptions.Compiled | RegexOptions.IgnoreCase);
+    }
+
+    private Regex BuildSpecialKeywordRegex()
+    {
+      var options = KnockoutHighlighterPackage.Options;
+      if(options == null) return new Regex(@"$^"); // match nothing
+
+      var escapedKeywords = options.SpecialKeywords
+        .Split(',')
+        .Select(k => Regex.Escape(k.Trim()));
+
+      var pattern = $@"(?<!\w)(?:{string.Join("|", escapedKeywords)})(?!\w)";
+
       return new Regex(pattern, RegexOptions.Compiled | RegexOptions.IgnoreCase);
     }
 
@@ -132,6 +151,14 @@ namespace KnockoutHighlighter.DataBind
           var kwStart = valueStart + kw.Index;
           var kwSpan = new SnapshotSpan(kwStart, kw.Length);
           spans.Add(new ClassificationSpan(kwSpan, _keywordType));
+        }
+
+        // Highlight special keywords
+        foreach(Match kw in _specialKeywordRegex.Matches(valueGroup.Value))
+        {
+          var kwStart = valueStart + kw.Index;
+          var kwSpan = new SnapshotSpan(kwStart, kw.Length);
+          spans.Add(new ClassificationSpan(kwSpan, _specialKeywordType));
         }
 
         // Highlight brackets

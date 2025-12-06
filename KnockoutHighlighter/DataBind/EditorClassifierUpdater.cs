@@ -66,6 +66,7 @@ namespace KnockoutHighlighter.DataBind
       SetStyle("dataBindName", options.AttributeNameColor, null, options.BoldAttributeName);
       SetStyle("dataBindValue", null, options.ValueBackground);
       SetStyle("dataBindKeyword", options.KeywordForeground, null, italic: options.ItalicKeywords);
+      SetStyle("dataBindSpecialKeyword", options.SpecialKeywordForeground, null, italic: options.ItalicKeywords);
       SetStyle("dataBindBracket", options.BracketColor, null);
       SetStyle("dataBindComment", options.CommentColor, null);
     }
